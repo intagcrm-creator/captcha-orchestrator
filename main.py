@@ -23,6 +23,13 @@ async def health():
     return {"status": "ok"}
 
 
+@app.get("/balance")
+async def balance():
+    if orchestrator and orchestrator.capsolver:
+        return await orchestrator.capsolver.get_balance()
+    return {"balance_usd": 0}
+
+
 @app.get("/metrics")
 async def metrics():
     if orchestrator:
